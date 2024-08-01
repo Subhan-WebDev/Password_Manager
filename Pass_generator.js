@@ -90,7 +90,7 @@ const fetchUsername = async (user) => {
 // Redirect to login if not authenticated
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
   } else {
     console.log('User is signed in:', user);
     await fetchUsername(user);
