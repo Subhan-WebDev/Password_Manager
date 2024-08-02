@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Password Manager</title>
+</head>
+
+<body class="">
+    <section class="main w-full bg-black flex justify-center items-center 2xl:h-screen">
+        <div class="launch-section my-5 md:my-20 w-[85%] mb-24 h-[85%] p-3 md:p-16">
+            <h1 class="heading z-10 relative text-3xl md:text-5xl text-white font-extrabold">PASSWORD MANAGER</h1>
+            <p class="pera  w-full md:w-[90%] md:text-2xl my-2 md:my-12 text-white relative z-10">Our web application is a highly secure and
+                user-friendly tool meticulously crafted to assist users in managing their passwords effectively. It
+                delivers a comprehensive solution for generating, storing, and organizing passwords, ensuring that users
+                can maintain robust security practices while handling their credentials with ease.
+                <br>
+                The application excels in providing a seamless experience for password management. Users can generate
+                strong, unique passwords with customizable settings, making it easy to adhere to the latest security
+                standards. With encrypted storage for all passwords and sensitive data, the application ensures that
+                user information remains protected from unauthorized access.
+                <br>
+                Designed with an intuitive interface, the application simplifies the process of managing and retrieving
+                passwords. It enables users to categorize and search their stored credentials effortlessly, enhancing
+                both organization and accessibility.
+                <br>
+                By combining advanced security features with a streamlined user experience, our web application offers a
+                powerful tool for both personal and professional password management.
+            </p>
+            <button id="launchBtn"
+                class="text-white relative font-bold z-10 border-2 border-green-700 p-2 rounded-lg hover:bg-green-700 hover:text-black">Launch</button>
+        </div>
+        <div id="loginSection" class="login w-[100%] hidden h-full z-30 absolute top-0 bg-[#000000d2] py-36 ">
+            <h2 class="text-3xl font-semibold text-center text-white">Login Account</h2>
+            <form action="" class="form flex flex-col justify-center items-center w-full">
+                <input type="email" placeholder="email" id="loginemail"
+                    class="username w-[95%] md:w-1/2 outline-none border-2 border-green-800 my-2 p-3 rounded-md focus:shadow-lg focus:shadow-green-700">
+                <input type="text" placeholder="Password" id="loginpassword"
+                    class="password w-[95%] md:w-1/2 outline-none border-2 border-green-800 my-2 p-3 rounded-md focus:shadow-lg focus:shadow-green-700">
+                <button type="button" id="loginbutton"
+                    class="btn my-2 p-2 bg-white border-2 border-green-800 w-[95%] md:w-1/2 rounded-lg text-xl font-semibold hover:bg-green-600 hover:text-black">
+                    Login
+                </button>
+                <p class="text-white text-xl">I Don't Have an Account? <button class="text-green-600 hover:text-white"
+                        type="button" id="loginBtn">Create Account</button></p>
+            </form>
+        </div>
+
+        <div id="signupSection" class="Signup w-[100%] h-full z-30 hidden absolute top-0 bg-[#000000d2] py-36 ">
+            <h2 class="text-3xl font-semibold text-center text-white">Sign Up</h2>
+            <form action="" class="form flex flex-col justify-center items-center w-full">
+                <input type="text" placeholder="Username" id="signusername"
+                    class="username w-[95%] md:w-1/2 outline-none border-2 border-green-800 my-2 p-3 rounded-md focus:shadow-lg focus:shadow-green-700">
+                <input type="email" placeholder="email" id="signemail"
+                    class="username w-[95%] md:w-1/2 outline-none border-2 border-green-800 my-2 p-3 rounded-md focus:shadow-lg focus:shadow-green-700">
+                <input type="text" placeholder="Password" id="signpassword"
+                    class="password w-[95%] md:w-1/2 outline-none border-2 border-green-800 my-2 p-3 rounded-md focus:shadow-lg focus:shadow-green-700">
+                <button type="button" id="signbutton"
+                    class="btn my-2 p-2 bg-white border-2 border-green-800 w-[95%] md:w-1/2 rounded-lg text-xl font-semibold hover:bg-green-600 hover:text-black">
+                    Sign up
+                </button>
+                <p class="text-white text-xl">I Already Have an Account! <button type="button" id="signupBtn"
+                        class="text-green-600 hover:text-white">Login</button></p>
+            </form>
+        </div>
+
+    </section>
+    <script src="../js/app.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBHmpHyQd_il3SMJwJVZbzAsgokTNZfzKg",
+            authDomain: "password-manager-3322.firebaseapp.com",
+            projectId: "password-manager-3322",
+            storageBucket: "password-manager-3322.appspot.com",
+            messagingSenderId: "141147368358",
+            appId: "1:141147368358:web:e0642e9b5fa5c0c6107d67",
+            measurementId: "G-DYJ1RYK574"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const Signemail = document.getElementById('signemail');
+        const Signpassword = document.getElementById('signpassword');
+        const SignUserName = document.getElementById('signusername');
+        const SignBtn = document.getElementById('signbutton');
+
+        const registerUser = async (e) => {
+            e.preventDefault();
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, Signemail.value, Signpassword.value);
+                const user = userCredential.user;
+                await setDoc(doc(db, 'users', user.uid), { username: SignUserName.value });
+                // await setDoc(doc(db, 'users', user.uid), { username: username });
+
+                // Create collections for the new user
+                // const userRef = doc(db, 'users', user.uid);
+                // await setDoc(userRef, { username: SignUserName.value });
+
+                // const generatedPasswordsRef = collection(userRef, 'generated_passwords');
+                // const storedPasswordsRef = collection(userRef, 'stored_passwords');
+
+                // Redirect to the dashboard
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                alert(error.message);
+            }
+        };
+
+        SignBtn.addEventListener('click', registerUser);
+
+        const loginEmaiPassword = async () => {
+            const loginEmail = document.getElementById('loginemail').value;
+            const loginPassword = document.getElementById('loginpassword').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                alert(error.message);
+            }
+        };
+
+        const login = document.getElementById('loginbutton');
+        login.addEventListener("click", loginEmaiPassword);
+
+        onAuthStateChanged(auth, (user) => {
+            if (user != null) {
+                console.log("logged in");
+                // ...
+            } else {
+                console.log("not logged in");
+                // ...
+            }
+        });
+    </script>
+</body>
+
+</html>

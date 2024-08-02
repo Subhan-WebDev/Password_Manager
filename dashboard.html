@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>DashBoard Pass Manager</title>
+</head>
+
+<body>
+    <section class="main flex h-screen">
+        <div class="sidebar w-[55%] lg:w-[15%] md:w-[25%] md:flex md:flex-col  hiddens h-full md:bg-[#f6f6f678] bg-[#f6f6f6e1] absolute md:relative" id="sidebar-responsive">
+            <div class="top hidden md:flex flex-col md:flex-row md:justify-around justify-center items-center mb-5 bg-[#10691a] rounded-b-xl text-white">
+                <!-- <div class="btn inline md:hidden self-baseline " id="close">
+                    <i class="fa-solid fa-x m-3 "></i>
+                </div> -->
+                <img src="/images/logo.png" alt="LOGO" width="100px">
+                <p class="font-medium text-xl sidebar-username">@</p>
+            </div>
+            <div class="btn inline md:hidden self-baseline " id="close">
+                <i class="fa-solid fa-x m-3 "></i>
+            </div>
+            <div class="nav-bar flex flex-col  ">
+                <div
+                    class="dash-btn flex justify-center items-center my-4 mx-3 p-4 hover:bg-green-400 bg-white  rounded-lg">
+                    <img src="../images/image.png" alt="" width="10%"><button><a href="dashboard.html"
+                            width="100%">Dashboard</a></button>
+                </div>
+                <div
+                    class="dash-btn flex justify-center items-center my-4 mx-3 p-4 hover:bg-green-400 bg-white  rounded-lg">
+                    <img src="../images/communication-skills.png" alt="" width="10%"><button><a
+                            href="Pass_generator.html" width="100%">Pass Generator</a></button>
+                </div>
+                <div
+                    class="dash-btn flex justify-center items-center my-4 mx-3 p-4 hover:bg-green-400 bg-white  rounded-lg">
+                    <img src="../images/planning.png" alt="" width="10%"><button><a href="Pass_manager.html" width="100%">Pass
+                            manager</a></button>
+                </div>
+                <div
+                    class="dash-btn flex justify-center items-center my-4 mx-3 p-4 hover:bg-green-400 bg-white  rounded-lg absolute bottom-0">
+                    <img src="../images/planning.png" alt="" width="10%"><button id="logout">Logout</button>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="main-area w-full flex flex-col  justify-start items-center  md:w-[85%] h-full">
+            <div class="top flex flex-row md:flex-row-reverse md:hidden w-full justify-around items-center mb-5  bg-[#10691a] rounded-b-xl text-white">
+                <!-- <div class="btn inline md:hidden self-baseline " id="close">
+                    <i class="fa-solid fa-x m-3 "></i>
+                </div> -->
+                <div class="btn  md:hidden flex justify-center items-center " id="myBtn">
+                    <i class="fa-solid fa-bars m-3 "></i>
+                    <img src="/images/logo.png" width="100px" alt="LOGO">
+                </div>
+                <p class="font-medium text-xl sidebar-usernames">@</p>
+            </div>
+            <div class="gernerated xl:w-[65%] w-[95%] my-36">
+                <h2 class="text-3xl text-green-900 font-bold text-center">Password Generated</h2>
+                <div class="responsive w-full overflow-x-auto">
+                    <table class="store border border-black my-3 w-full p-3" id="store">
+                        <thead class=" bg-green-700 ">
+                        <tr>
+                            <th class="text-xl table-head-data-dashboard">Username</th>
+                            <th class="text-xl table-head-data-dashboard">Password</th>
+                            <th class="text-xl table-head-data-dashboard">Link</th>
+                            <th class="text-xl table-head-data-dashboard">Button</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <tr>
+                            <td class="table-Data-dashboard">Subhan</td>
+                            <td class="table-Data-dashboard">Subhankamran</td>
+                            <td class="table-Data-dashboard table-button"><Button><a
+                                href="facebook.com">Visit</a></Button></td>
+                                <td class="table-Data-dashboard table-button"><button>Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="managed xl:w-[65%] w-[95%]">
+                <h2 class="text-3xl text-green-900 font-bold text-center">Password Manager</h2>
+                <div class="responsive w-full overflow-x-auto">
+
+                    <table class="store border border-black my-3 w-full p-3" id="store">
+                        <thead class="bg-green-700">
+                        <tr>
+                            <th class="text-xl table-head-data-dashboard">Username</th>
+                            <th class="text-xl table-head-data-dashboard">Password</th>
+                            <th class="text-xl table-head-data-dashboard">Link</th>
+                            <th class="text-xl table-head-data-dashboard">Button</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <tr>
+                            <td class="table-Data-dashboard">Subhan</td>
+                            <td class="table-Data-dashboard">Subhankamran</td>
+                            <td class="table-Data-dashboard table-button"><Button><a
+                                href="facebook.com">Visit</a></Button></td>
+                                <td class="table-Data-dashboard table-button"><button>Delete</button></td>
+                            </tr>
+                        </tbody>
+                    </div>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://kit.fontawesome.com/41afca5295.js" crossorigin="anonymous"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
+        import { getDatabase, set, ref } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, connectAuthEmulator, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBHmpHyQd_il3SMJwJVZbzAsgokTNZfzKg",
+            authDomain: "password-manager-3322.firebaseapp.com",
+            projectId: "password-manager-3322",
+            storageBucket: "password-manager-3322.appspot.com",
+            messagingSenderId: "141147368358",
+            appId: "1:141147368358:web:e0642e9b5fa5c0c6107d67",
+            measurementId: "G-DYJ1RYK574"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        const fetchUsername = async (user) => {
+            const docRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                document.querySelector('.sidebar-username').textContent = "@" + userData.username;
+                document.querySelector('.sidebar-usernames').textContent = "@" + userData.username;
+            } else {
+                console.log("No such document!");
+            }
+        };
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                await fetchUsername(user);
+                console.log(user)
+            }
+            else{
+                window.location.href = 'index.html';
+            }
+        });
+
+        document.getElementById('logout').addEventListener('click', function(){
+            console.log("click")
+            auth.signOut().then(() => {
+                window.location.href = 'index.html';
+                console('working')
+            }).catch(error => {
+                console.error('Error signing out:', error);
+            });
+        });
+        let open = document.getElementById("myBtn")
+        open.addEventListener("click", function () {
+            document.getElementById('sidebar-responsive').classList.remove("hiddens")
+        });
+        let close = document.getElementById('close')
+        //   console.log(close)
+        close.addEventListener("click", function () {
+            console.log("closed");
+            document.getElementById('sidebar-responsive').classList.add("hiddens");
+        });
+    </script>
+</body>
+
+</html>
